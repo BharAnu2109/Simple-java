@@ -1,0 +1,65 @@
+<div class="restaurant-list-container">
+  <div class="header">
+    <h1>Available Restaurants</h1>
+    <div class="search-bar">
+      <input 
+        type="text" 
+        placeholder="Search restaurants..." 
+        (input)="searchRestaurants($any($event.target).value)"
+        class="search-input">
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    <p>Loading restaurants...</p>
+  </div>
+
+  <div *ngIf="error" class="error">
+    <p>{{ error }}</p>
+    <button (click)="loadRestaurants()" class="retry-btn">Retry</button>
+  </div>
+
+  <div class="restaurants-grid" *ngIf="!loading && !error">
+    <div *ngFor="let restaurant of restaurants" class="restaurant-card">
+      <div class="restaurant-image">
+        <img 
+          [src]="restaurant.imageUrl || '/assets/default-restaurant.jpg'" 
+          [alt]="restaurant.name"
+          class="restaurant-img">
+      </div>
+      
+      <div class="restaurant-info">
+        <h3>{{ restaurant.name }}</h3>
+        <p class="cuisine">{{ restaurant.cuisineType }}</p>
+        <p class="description">{{ restaurant.description }}</p>
+        <p class="address">📍 {{ restaurant.address }}</p>
+        
+        <div class="restaurant-details">
+          <div class="rating" *ngIf="restaurant.rating > 0">
+            ⭐ {{ restaurant.rating }}/5 ({{ restaurant.totalReviews }} reviews)
+          </div>
+          
+          <div class="delivery-info">
+            <span *ngIf="restaurant.deliveryEnabled" class="delivery-badge">🚚 Delivery</span>
+            <span *ngIf="restaurant.takeawayEnabled" class="takeaway-badge">🥡 Takeaway</span>
+            <span *ngIf="restaurant.dineInEnabled" class="dinein-badge">🍽️ Dine-in</span>
+          </div>
+          
+          <div class="timing">
+            🕐 {{ restaurant.openingTime }} - {{ restaurant.closingTime }}
+          </div>
+        </div>
+        
+        <div class="restaurant-actions">
+          <button (click)="viewMenu(restaurant.id)" class="view-menu-btn">
+            View Menu
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!loading && !error && restaurants.length === 0" class="no-results">
+    <p>No restaurants found.</p>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+com/restaurant/service/order/repository/OrderItemRepository.class
+com/restaurant/service/order/client/RestaurantServiceClient.class
+com/restaurant/service/order/OrderServiceApplication.class
+com/restaurant/service/order/service/OrderService.class
+com/restaurant/service/order/repository/OrderRepository.class
+com/restaurant/service/order/controller/OrderController.class
+com/restaurant/service/order/service/OrderService$1.class
